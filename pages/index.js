@@ -13,79 +13,61 @@ import {
 import NextLink from "next/link";
 import useStyles from "../utils/styles";
 import clienteAxios from "../axios";
+import {CRMContext, CRMProvider} from '../utils/CRMContext'
+import {useContext} from "react";
 
 export default function Home() {
   const classes = useStyles();
+  const [auth, guardarAuth] = useContext(CRMContext);
+  console.log(auth);
+
+  // const { tattoos } = props;
   return (
     <Layout>
-      <Grid container spacing={1}>
-        <Grid item xs={12}>
-          <Image
-            src="/images/tatoo.jpg"
-            width={340}
-            height={120}
-            layout="responsive"
-          ></Image>
-        </Grid>
-        <Grid item md={6} xs={12} className={classes.infoIndex}>
-          <List>
-            <ListItem>
-              <Typography component="h5" variant="h5">
-                Lorem ipsum dolor, sit amet consectetut.
-              </Typography>
-              <NextLink href="/contacto" passHref>
-                <Link>
-                  <Button variant="contained" color="primary">
-                    Contactanos
+      {/* <div>
+        <h1>Our best tattos</h1>
+
+        <Grid container spacing={3}>
+          {tattoos.map((product) => (
+            <Grid item md={4} key={product.authorName}>
+              <Card>
+                <NextLink href={`/product/${product.description}`} passHref>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      image={product.image}
+                      title={product.description}
+                    ></CardMedia>
+                    <CardContent>
+                      <Typography>{product.category}</Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </NextLink>
+                <CardActions>
+                  <Typography>${product.description}</Typography>
+                  <Button size="small" color="primary">
+                    Add to cart
                   </Button>
-                </Link>
-              </NextLink>
-            </ListItem>
-          </List>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
-        <Grid item md={6} xs={12}>
-          <Image
-            src="/images/tatoo.jpg"
-            width={340}
-            height={120}
-            layout="responsive"
-          ></Image>
-        </Grid>
-        <Grid item md={6} xs={12} mx={{ flexDirection: "column-reverse" }}>
-          <Image
-            src="/images/tatoo.jpg"
-            width={340}
-            height={120}
-            layout="responsive"
-          ></Image>
-        </Grid>
-        <Grid item md={6} xs={12} mx={{ flexDirection: "column-reverse" }}>
-          <List>
-            <ListItem>
-              <Typography component="h5" variant="h5">
-                Lorem ipsum dolor, sit amet consectetut.
-              </Typography>
-              <NextLink href="/contacto" passHref>
-                <Link>
-                  <Button variant="contained" color="primary">
-                    contactanos
-                  </Button>
-                </Link>
-              </NextLink>
-            </ListItem>
-          </List>
-        </Grid>
-      </Grid>
+      </div> */}
     </Layout>
   );
 }
+
+/*
 export async function getServerSideProps() {
-  const respuesta = await clienteAxios.get("/staff");
-  const data = respuesta.data.listUser.users;
-  console.log(data);
-  return {
-    props: {
-      products: "jeee",
-    },
-  };
+  const res = await clienteAxios("/admin");
+  const resJSON = await res.json();
+  console.log(resJSON);
+  //return { users: resJON.data };
+  // return {
+  //   props: {
+  //     tattoos: tattoos.map(db.convertDocToObj),
+  //   },
+  // };
 }
+*/

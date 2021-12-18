@@ -2,6 +2,8 @@ import Head from "next/head";
 import React, { useContext } from "react";
 import useStyles from "../utils/styles";
 import NextLink from "next/link";
+import { Store } from "../utils/Store";
+import Image from "next/image";
 import {
   AppBar,
   Toolbar,
@@ -11,45 +13,97 @@ import {
   ThemeProvider,
   CssBaseline,
   createTheme,
+
   Button,
   Switch,
   Badge,
 } from "@material-ui/core";
-import { createMuiTheme } from "@material-ui/styles";
+import { useRouter } from "next/router";
+import Header from "./Header";
+import Header2 from "./Header2";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import MenuIcon from "@material-ui/icons/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import IconButton from "@material-ui/core/IconButton";
+import theme from "./Theme"
 
 export default function Layout({ title, description, children }) {
+  //const { state, dispatch } = useContext(Store);
+  //const { darkMode } = state;
 
 
-  const theme = createTheme({
-    typography: {
+  // const theme = createTheme({
+  //   typography: {
+  //     h1: {
+  //       fontSize: "1.6rem",
+  //       fontWeight: 600,
+  //       margin: "1rem 0",
+  //     },
+  //     h2: {
+  //       fontSize: "1.4rem",
+  //       fontWeight: 400,
+  //       margin: "1rem 0",
+  //     },
+  //   },
+  //   palette: {
+  //     type: darkMode ? "dark" : "light",
+  //     primary: {
+  //       main: "#EFC437",
+  //     },
+  //     secondary: {
+  //       main: "#208080",
+  //     },
+  //   },
+  // });
 
-      h1: {
-        fontSize: "1.6rem",
-        fontWeight: 600,
-        margin: "1rem 0",
-      },
-      h2: {
-        fontSize: "1.4rem",
-        fontWeight: 400,
-        margin: "1rem 0",
-      },
-    },
-    palette: {
-      type: "light",
-      primary: {
-        main: "#EFC437",
-      },
-      secondary: {
-        main: "#208080",
-      },
-    },
-  });
-  const classes = useStyles();
-  // const darkModeChangeHandler = () => {
-  //   dispatch({ type: darkMode ? "DARK_MODE_OFF" : "DARK_MODE_ON" });
-  //   const newDarkMode = !darkMode;
-  //   Cookies.set("darkMode", newDarkMode ? "ON" : "OFF");
-  // };
+const classes = useStyles();
+const [anchorEl, setAnchorEl] = React.useState(null);
+const router = useRouter();
+const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+
+const handleMenu = (event) => {
+  setAnchorEl(event.currentTarget);
+};
+
+const handleMenuClick = (pageURL) => {
+  router.push(pageURL);
+  setAnchorEl(null);
+};
+
+const handleButtonClick = () => {
+  router.push("/");
+};
+
+const open = Boolean(anchorEl);
+const menuItems = [
+  {
+    menuTitle: "Home",
+    pageURL: "/",
+  },
+  {
+    menuTitle: "Contacto",
+    pageURL: "/contacto",
+  },
+  {
+    menuTitle: "Servicios",
+    pageURL: "/servicios",
+  },
+  {
+    menuTitle: "Galeria",
+    pageURL: "/galeria",
+  },
+  {
+    menuTitle: "Login",
+    pageURL: "/login",
+  },
+];
+    const darkModeChangeHandler = () => {
+      dispatch({ type: darkMode ? "DARK_MODE_OFF" : "DARK_MODE_ON" });
+      const newDarkMode = !darkMode;
+      //Cookies.set("darkMode", newDarkMode ? "ON" : "OFF");
+    };
+
   return (
     <div>
       <Head>
@@ -57,38 +111,9 @@ export default function Layout({ title, description, children }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="static" className={classes.navbar}>
-          <Toolbar>
-            <NextLink href="/" passHref>
-              <Link>
-                <Typography className={classes.logo}>Logo</Typography>
-              </Link>
-            </NextLink>
-           {/* <div ></div> */}
-            <div className={classes.grow}>
-              <NextLink href="/servicios" passHref>
-                <Link>Servicios</Link>
-              </NextLink>
-              <NextLink href="/galeria" passHref>
-                <Link>Galeria</Link>
-              </NextLink>
-              <NextLink href="/contacto" passHref>
-                <Link>Contacto</Link>
-              </NextLink>
-                </div>
-              <NextLink href="/login" passHref>
-                <Link>
-                  <Button
+        {/* <Header></Header> */}
+        <Header2></Header2>
 
-                    variant="contained"
-                    color="primary"
-                  >
-                    Login
-                  </Button>
-                </Link>
-              </NextLink>
-          </Toolbar>
-        </AppBar>
 
         <Container className={classes.main}>{children}</Container>
         <footer className={classes.footer}>

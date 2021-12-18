@@ -21,21 +21,17 @@ export default function Register() {
      const initialForm = {
        name: "",
        lastName: "",
-       phonePersonal: "",
-       age: "",
-       socialNetwork: "",
-       picture: "",
+       idRole: "",
        email: "",
        password: "",
      };
-    const [client, actualizarState, reset] = useForm(initialForm);
+    const [user, actualizarState, reset] = useForm(initialForm);
 
     const handlerSubmit = (e) => {
       e.preventDefault();
-      client.idRole
-      console.log(client);
+      console.log(user);
      clienteAxios
-       .post("/client", client)
+       .post("/admin", user)
        .then((respuesta) => {
          console.log(respuesta);
          router.push("/");
@@ -81,42 +77,9 @@ export default function Register() {
            <TextField
              variant="outlined"
              fullWidth
-             id="phonePersonal"
-             label="personal phone"
-             name="phonePersonal"
-             inputProps={{ type: "tel" }}
-             onChange={actualizarState}
-           ></TextField>
-         </ListItem>
-         <ListItem>
-           <TextField
-             variant="outlined"
-             fullWidth
-             id="age"
-             label="Age"
-             name="age"
-             inputProps={{ type: "text" }}
-             onChange={actualizarState}
-           ></TextField>
-         </ListItem>
-         <ListItem>
-           <TextField
-             variant="outlined"
-             fullWidth
-             id="socialNetwork"
-             label="social network"
-             name="socialNetwork"
-             inputProps={{ type: "text" }}
-             onChange={actualizarState}
-           ></TextField>
-         </ListItem>
-         <ListItem>
-           <TextField
-             variant="outlined"
-             fullWidth
-             id="picture"
-             label="picture"
-             name="picture"
+             id="idRol"
+             label="idRol"
+             name="idRole"
              inputProps={{ type: "text" }}
              onChange={actualizarState}
            ></TextField>

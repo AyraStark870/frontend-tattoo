@@ -13,35 +13,33 @@ import {useState} from 'react'
 import clienteAxios from "../../axios";
 import { useForm } from "../../hooks/useForm";
 import { useRouter } from "next/router";
+import { CRMContext, CRMProvider } from "../../utils/CRMContext";
+import { useContext } from "react";
 
 export default function Login() {
  const classes = useStyles();
   const router = useRouter();
+  const [auth, guardarAuth] = useContext(CRMContext);
 
   const initialForm = {
        email: "",
-       password: "",
+       pasword: "",
   };
   const [user, actualizarState, reset] = useForm(initialForm);
 
-
-  //  const [user, datosUser] = useState({
-  //    email: "",
-  //    password: "",
-  //  });
-  //    const actualizarState = ({ target }) => {
-  //      datosUser({
-  //        ...user,
-  //        [target.name]: target.value,
-  //      });
-  //     };
       const handlerSubmit = e=>{
         e.preventDefault()
         console.log(user);
          clienteAxios
            .post("/login", user)
-           .then((respuesta) => {
-             console.log(respuesta);
+           .then(respuesta => {
+            const {rol,name, token} = respuesta.data
+                     guardarAuth({
+                       token,
+                       auth: true,
+                       rol,
+                       name,
+                     });
              router.push("/");
              //  document.querySelector("#form").reset();
            })
@@ -53,9 +51,7 @@ export default function Login() {
  return (
    <Layout title="Login">
      <form className={classes.form} onSubmit={handlerSubmit}>
-       <Typography component="h1" variant="h1">
-         Login
-       </Typography>
+
        <List>
          <ListItem>
            <TextField
@@ -74,7 +70,7 @@ export default function Login() {
              fullWidth
              id="password"
              label="Password"
-             name="password"
+             name="pasword"
              inputProps={{ type: "password" }}
              onChange={actualizarState}
            ></TextField>

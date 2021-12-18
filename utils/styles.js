@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   navbar: {
-    backgroundColor: "#ffffff",
+  //  backgroundColor: "#ffffff",
     marginBottom: 50,
     "& a": {
       color: "#000000",
@@ -28,6 +28,12 @@ const useStyles = makeStyles({
     justifyContent: "space-around",
     alignItems: "center",
   },
+  grow2: {
+    flexGrow: 1,
+    display: "flex",
+    justifyContent: "right",
+    alignItems: "center",
+  },
   section: {
     marginTop: 10,
     marginBottom: 10,
@@ -45,5 +51,8 @@ const useStyles = makeStyles({
     maxWidth: 800,
     margin: "0 auto",
   },
+  menuButton:{
+    color:'#000',
+  }
 });
 export default useStyles
